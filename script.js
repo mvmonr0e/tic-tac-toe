@@ -44,6 +44,7 @@ function move(player, row, col){
 // check if game is over
 function gameOver(){
     // check each row
+    spliceRow = -1;
     for (const i of validRows){
         tempRow = [];
         for (const j of validCols){
@@ -58,11 +59,16 @@ function gameOver(){
             return true;
         }
         else if (!tempRow.join('').includes('0')){
-            Gameboard.validRows.splice(1,i);
+            spliceRow = i
+        }
+
+        if (spliceRow !== -1){
+            Gameboard.validRows.splice(1,spliceRow);
         }
     }
 
     // check each column
+    spliceCol = -1;
     for (const j of validCols){
         tempCol = [];
         for (const i of validRows){
@@ -77,8 +83,11 @@ function gameOver(){
             return true;
         }
         else if (!tempCol.join('').includes('0')){
-            Gameboard.validCols.splice(1,j);
+            spliceCol = j;
         }
+    }
+    if (spliceCol !== -1){
+        Gameboard.validCols.splice(1,spliceCol);
     }
 }
 
